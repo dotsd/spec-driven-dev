@@ -115,14 +115,25 @@ When starting a brand-new project—either from an idea or pre-existing product 
 
    The agent interviews you on up to 5 critical edge cases before designing architecture.
 
-5. **Generate architecture & task breakdown**:
+5. **Generate architecture & validate requirements**:
 
    ```text
    /speckit-plan
-   /speckit-tasks
+   /speckit-checklist
    ```
 
-6. **Implement and converge**:
+   `/speckit-plan` designs the system architecture, dependencies, and data schemas. `/speckit-checklist` generates requirements-quality checklists ("unit tests for your requirements") verifying completeness, testability, and edge cases before task breakdown.
+
+6. **Decompose tasks & audit consistency**:
+
+   ```text
+   /speckit-tasks
+   /speckit-analyze
+   ```
+
+   `/speckit-tasks` generates a dependency-ordered task graph. `/speckit-analyze` acts as a quality gate, non-destructively verifying cross-artifact consistency across `spec.md`, `plan.md`, and `tasks.md` to catch coverage gaps or orphaned requirements before writing code.
+
+7. **Implement and converge**:
 
    ```text
    /speckit-implement
@@ -167,11 +178,12 @@ When adding a feature or fixing a bug in an existing repository:
 
    ```text
    /speckit-tasks
+   /speckit-analyze
    /speckit-implement
    /speckit-converge
    ```
 
-   The agent implements regression tests first, applies the fix, and runs your test suite to ensure green CI.
+   The agent breaks work into tasks, audits cross-artifact consistency with `/speckit-analyze`, implements regression tests first, applies the fix, and runs your test suite to ensure green CI.
 
 ---
 
