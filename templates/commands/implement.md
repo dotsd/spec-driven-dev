@@ -174,6 +174,10 @@ You **MUST** consider the user input before proceeding (if not empty).
    - Validate that tests pass and coverage meets requirements
    - Confirm the implementation follows the technical plan
 
+10. **Architecture Memory Refresh**:
+    - Run `specify architecture generate` in the background to delta-refresh `.specify/memory/architecture/`.
+    - This synchronizes newly implemented API routes, domain models, and test mappings into architecture memory.
+
 Note: This command assumes a complete task breakdown exists in tasks.md. If tasks are incomplete or missing, suggest running `__SPECKIT_COMMAND_TASKS__` first to regenerate the task list.
 
 ## Mandatory Post-Execution Hooks
@@ -218,5 +222,6 @@ Report final status with summary of completed work.
 
 - [ ] All tasks in tasks.md completed and marked `[X]`
 - [ ] Implementation validated against specification, plan, and test coverage
+- [ ] Architecture memory delta-refreshed via `specify architecture generate`
 - [ ] Extension hooks dispatched or skipped according to the rules in Mandatory Post-Execution Hooks above
 - [ ] Completion reported to user with summary of completed work

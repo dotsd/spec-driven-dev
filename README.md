@@ -56,7 +56,23 @@ Every phase creates version-controlled, human-readable markdown artifacts under 
 - `quickstart.md`: Step-by-step validation and verification runbook.
 - `checklists/`: Custom requirements-quality review checklists.
 
-### 4. 🔌 Extensibility, Lifecycle Hooks & Community Catalog
+### 4. 🧠 Unified Architecture Memory & Knowledge Graph
+
+Spec Kit maintains a continuously synchronized, category-based architectural memory in `.specify/memory/architecture/` that unifies technical code, functional PRDs, specifications, and issue tracking:
+
+- **Multi-Language AST Analysis**: Automatically discovers API routes, handlers, database entities, domain models, and import graphs across Python, TypeScript/JavaScript, Go, Rust, Java, SQL, and Prisma.
+- **Unified Functional & Work Traceability Matrix**: Connects functional PRDs (`docs/`), active Spec Kit feature specifications (`specs/**`), and JIRA tickets directly to their implementing code components, endpoints, and data models.
+- **Modular Knowledge Categories**:
+  - `overview.md`: System summary, detected tech stacks, directory conventions, and visual Mermaid system topology.
+  - `api-surface.md`: Exhaustive catalog of exposed HTTP/RPC endpoints, CLI commands, and entrypoint handlers.
+  - `domain-models.md`: Complete dictionary of database schemas, ORM models, Pydantic models, Zod schemas, and types.
+  - `traceability.md`: Functional requirements (`FR-###`, `REQ-###`, `US-###`) and JIRA work tickets mapped to code.
+  - `dependencies.md`: Inter-module dependency coupling, hotspots, and blast-radius risk ratings for refactoring.
+  - `test-map.md`: Test suite architecture mapping source components to test coverage.
+- **Sub-Second Delta Refreshes**: Employs SHA-256 file-hash caching (`.specify/cache/architecture_cache.json`) to re-parse only changed files, keeping memory up to date in milliseconds (~100 ms).
+- **Background SDD Integration**: `/speckit-plan` consults existing architecture models to avoid schema duplication, `/speckit-implement` delta-refreshes memory upon task completion, and `/speckit-converge` uses traceability to verify all requirements are implemented.
+
+### 5. 🔌 Extensibility, Lifecycle Hooks & Community Catalog
 
 - **Lifecycle Hook System**: Define custom pre- and post-execution hooks in `.specify/extensions.yml` (`before_plan`, `after_plan`, `before_implement`, `after_implement`, `before_converge`, etc.) to trigger custom linters, security scanners, or automated CI notifications.
 - **Extensions & Bundles**: Discover, install, and author reusable Spec Kit extensions, presets, and workflows with `specify extension`, `specify preset`, and `specify bundle`.
@@ -115,6 +131,7 @@ Run each phase in your agent chat, reviewing outputs along the way:
 
 | Slash Command | Stage | Purpose |
 | :--- | :---: | :--- |
+| **`/speckit-code-analyze`** | Audit | Deep architectural analysis: extracts AST, maps functional PRDs/JIRA tickets to code, and builds `.specify/memory/architecture/`. |
 | **`/speckit-constitution`** | 0 | Sets non-negotiable project quality bars, tech stack boundaries, and rules. |
 | **`/speckit-specify`** | 1 | Generates the functional specification (PRD, user stories, acceptance criteria). |
 | **`/speckit-clarify`** | 1.5 | Active interview mode: agent asks targeted questions to resolve ambiguities before planning. |
@@ -200,19 +217,28 @@ When adding a feature or fixing a bug in an existing repository:
    specify init . --integration jetski
    ```
 
-2. **Capture existing repository norms in the constitution**:
+2. **Map existing codebase architecture & functional documents**:
+   Audit the repository to generate the system topology, routes, schemas, and PRD/ticket traceability:
+
+   ```text
+   /speckit-code-analyze docs/prd
+   ```
+
+   *(Or run `specify architecture generate` via CLI).*
+
+3. **Capture existing repository norms in the constitution**:
 
    ```text
    /speckit-constitution Align with our existing patterns in src/: FastAPI, SQLAlchemy 2.0, pytest, and 90%+ branch coverage.
    ```
 
-3. **Specify the enhancement or fix**:
+4. **Specify the enhancement or fix**:
 
    ```text
    /speckit-specify Fix issue where expired JWT refresh tokens cause a 500 error instead of a 401 Unauthorized response in /auth/refresh.
    ```
 
-4. **Plan with codebase context**:
+5. **Plan with codebase context**:
 
    ```text
    /speckit-plan
@@ -220,7 +246,7 @@ When adding a feature or fixing a bug in an existing repository:
 
    The agent inspects existing models, database migrations, and routers to design a surgical change that avoids regressions.
 
-5. **Execute and verify**:
+6. **Execute and verify**:
 
    ```text
    /speckit-tasks
