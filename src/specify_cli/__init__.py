@@ -425,6 +425,11 @@ _register_integration_cmds(app)
 from .events import register as _register_event_cmds  # noqa: E402
 _register_event_cmds(app)
 
+
+# ===== Architecture Commands =====
+from .architecture._commands import register as _register_architecture_cmds  # noqa: E402
+_register_architecture_cmds(app)
+
 # Re-export selected helpers to preserve the public import surface.
 from .integrations._helpers import (  # noqa: E402
     _clear_init_options_for_integration as _clear_init_options_for_integration,

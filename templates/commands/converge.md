@@ -130,6 +130,10 @@ Load only the minimal necessary context from each artifact:
 
 - Principle names and MUST/SHOULD normative statements
 
+**From architecture memory (`.specify/memory/architecture/traceability.md` if present):**
+
+- Existing requirement-to-code traceability links and uncovered/unimplemented requirement items to accelerate gap identification.
+
 ### 3. Build the Intent Inventory
 
 Create an internal model (do not echo raw artifacts):

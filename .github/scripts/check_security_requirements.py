@@ -111,6 +111,16 @@ def main() -> int:
     if committed == generated:
         return 0
 
+    import difflib
+    print("--- COMMITTED vs GENERATED DIFF ---", file=sys.stderr)
+    diff = difflib.unified_diff(
+        committed.splitlines(keepends=True),
+        generated.splitlines(keepends=True),
+        fromfile="committed",
+        tofile="generated",
+    )
+    sys.stderr.writelines(diff)
+
     print(
         "Regenerate .github/security-audit-requirements.txt with the documented "
         "uv pip compile command.",
