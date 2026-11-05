@@ -18,6 +18,52 @@ Instead of raw prompts that lead to hallucination, context drift, and brittle ha
 
 ---
 
+## ✨ Key Features & Capabilities
+
+### 1. 🛡️ Deterministic Multi-Stage Gating Pipeline
+
+Spec Kit eliminates AI hallucinations and context drift through an airtight, multi-stage gating process where every phase produces verified, reviewable markdown artifacts:
+
+- **Phase 0 — Project Constitution (`/speckit-constitution`)**: Establish non-negotiable architectural boundaries, coding standards, typing requirements, and testing bars.
+- **Phase 1 — Feature Specification (`/speckit-specify`)**: Generate crystal-clear PRDs, user stories, acceptance scenarios (Gherkin style), and measurable success criteria.
+- **Phase 1.5 — Socratic Clarification (`/speckit-clarify`)**: Proactively interviews you on up to 5 critical ambiguities and edge cases before technical design begins.
+- **Phase 2 — Architectural Planning (`/speckit-plan`)**: Designs technical architecture, database schemas, interfaces, contracts (`contracts/`), and technical prerequisites (`research.md`, `quickstart.md`).
+- **Phase 2.5 — Requirements Checklists (`/speckit-checklist`)**: Generates custom requirements-quality verification checklists—acting as "unit tests for your requirements" before breaking work into tasks.
+- **Phase 3 — Dependency Task Decomposition (`/speckit-tasks`)**: Breaks implementation plans into discrete, ordered tasks with explicit phase grouping and parallel markers (`[P]`).
+- **Phase 3.5 — Cross-Artifact Consistency Analysis (`/speckit-analyze`)**: Non-destructively audits `spec.md` ↔ `plan.md` ↔ `tasks.md` for gaps, orphan tasks, or contradictions before writing code.
+- **Phase 4 — Test-Driven Implementation (`/speckit-implement`)**: Builds features incrementally task-by-task, running automated tests and marking tasks complete in real-time.
+- **Phase 5 — Self-Healing Convergence (`/speckit-converge`)**: Performs an authoritative spec-to-code gap assessment, comparing the codebase against the spec and appending any missing work as actionable tasks until 100% converged.
+
+### 2. 🤖 Universal Multi-Agent Native Support
+
+One unified toolkit that adapts natively to your team's preferred AI coding assistant:
+
+- **Google Jetski & Antigravity**: Native skills integration in `~/.gemini/skills/` with instant slash-command discovery in the chat UI.
+- **Claude Code**: First-class native `.claude/` commands and `CLAUDE.md` instructions.
+- **Cursor Agent**: Custom `.cursorrules` and workspace skills.
+- **GitHub Copilot**: Tailored agent prompts in `.github/copilot-instructions.md`.
+- **Windsurf, Codex, Kimi, Kilocode, Bob, & 20+ more**: Native adapters ensuring consistent project structure across diverse agent fleets.
+
+### 3. 📂 Specification-as-Code Artifact Architecture
+
+Every phase creates version-controlled, human-readable markdown artifacts under `specs/<feature>/`:
+
+- `spec.md`: Functional requirements, user stories, acceptance criteria, and measurable business outcomes.
+- `plan.md`: Architectural blueprint, technical choices, and implementation phases.
+- `data-model.md`: Domain models, database schemas, and entity relationships.
+- `contracts/`: Strict interface definitions (TypeScript interfaces, JSON Schema, OpenAPI, etc.).
+- `tasks.md`: Actionable task list with dependencies and progress markers (`- [x]`).
+- `quickstart.md`: Step-by-step validation and verification runbook.
+- `checklists/`: Custom requirements-quality review checklists.
+
+### 4. 🔌 Extensibility, Lifecycle Hooks & Community Catalog
+
+- **Lifecycle Hook System**: Define custom pre- and post-execution hooks in `.specify/extensions.yml` (`before_plan`, `after_plan`, `before_implement`, `after_implement`, `before_converge`, etc.) to trigger custom linters, security scanners, or automated CI notifications.
+- **Extensions & Bundles**: Discover, install, and author reusable Spec Kit extensions, presets, and workflows with `specify extension`, `specify preset`, and `specify bundle`.
+- **Automation Workflows**: Script and execute multi-step agent workflows deterministically using `specify workflow`.
+
+---
+
 ## ⚡ Quickstart
 
 ### 1. Prerequisites
@@ -273,25 +319,81 @@ my-project/
 
 ---
 
-## 🛠️ CLI Utilities
+## 🛠️ CLI Utilities Reference
 
-Check environment health:
+The `specify` CLI provides a complete set of command-line tools for managing projects, extensions, agent integrations, and workflows:
+
+### 1. Project Initialization & Diagnostics
 
 ```bash
+# Check environment health, installed dependencies, and tool prerequisites
 specify check
+
+# Initialize Spec Kit in the current directory for a specific agent
+specify init . --integration jetski
+specify init . --integration claude
+
+# Display CLI version, architecture, and environment details
+specify version
 ```
 
-Manage extensions:
+### 2. Extension & Community Catalog Management
+
+Extend your Spec-Driven Development workflow with community-contributed extensions and review tools:
 
 ```bash
+# List all currently installed extensions
 specify extension list
+
+# Search for available extensions in the official catalog
+specify extension search security
+
+# Install an extension from the catalog
 specify extension add bug
+
+# View detailed metadata for an extension
+specify extension info bug
+
+# Remove an extension
+specify extension remove bug
 ```
 
-Inspect registered artifacts:
+### 3. Workflow Automation & Execution
+
+Script and orchestrate multi-step autonomous pipelines deterministically:
 
 ```bash
+# List all registered workflows
+specify workflow list
+
+# Inspect workflow step graph and execution DAG
+specify workflow info feature-pipeline
+
+# Execute an automation workflow
+specify workflow run feature-pipeline
+```
+
+### 4. Presets, Bundles & Artifact Introspection
+
+```bash
+# Discover pre-configured rule presets
+specify preset list
+
+# Discover and install curated multi-extension bundles
+specify bundle list
+
+# Introspect registered commands, templates, scripts, and lifecycle hooks
 specify artifact list
+```
+
+### 5. In-Place Self Upgrades
+
+```bash
+# Check for newer releases and preview upgrade changes
+specify self check
+
+# Upgrade specify-cli in place to the latest release
+specify self upgrade
 ```
 
 ---
