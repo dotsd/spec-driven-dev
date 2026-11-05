@@ -74,9 +74,9 @@ class CacheManager:
 
         for path in current_files:
             try:
-                rel = str(path.relative_to(self.project_root))
+                rel = path.relative_to(self.project_root).as_posix()
             except ValueError:
-                rel = str(path)
+                rel = str(path).replace("\\", "/")
             seen_rel_paths.add(rel)
 
             if rel not in cache.file_hashes:
