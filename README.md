@@ -92,7 +92,7 @@ Spec Kit maintains a continuously synchronized, category-based architectural mem
 Install the tool globally using `uv`:
 
 ```bash
-uv tool install git+https://github.com/hasanrafiq-goog/spec-driven-dev.git
+uv tool install git+https://github.com/dotsd/spec-driven-dev.git
 ```
 
 ### 3. Initialize in Any Project Directory
